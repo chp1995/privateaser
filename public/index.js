@@ -259,4 +259,24 @@ for (var i = 0 ; i<events.length ; i++){
 }
 console.log(booking_price4);
 
+//💳 Step 5 - Pay the actors
+for(var i = 0 ; i<actors.length ; i++){
+  for(var j = 0 ; j<booking_price2.length ; j++){
+    if(actors[i].eventId==booking_price2[j].id){
+      actors[i].payment[0].amount=booking_price2[j].price
+    }
+  }
+  for(var j = 0 ; j<booking_price3.length ; j++){
+    if(actors[i].eventId==booking_price3[j].id){
+      actors[i].payment[1].amount=actors[i].payment[0].amount-booking_price3[j].commission["insurance"]-booking_price3[j].commission["treasury"]-booking_price3[j].commission["privateaser"]
+      actors[i].payment[2].amount=booking_price3[j].commission["insurance"]
+      actors[i].payment[3].amount=booking_price3[j].commission["treasury"]
+      actors[i].payment[4].amount=booking_price3[j].commission["privateaser"]
+    
+    }
+
+  }
+}
+console.log(actors)
+
 
