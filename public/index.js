@@ -146,6 +146,22 @@ const actors = [{
   }]
 }];
 
-console.log(bars);
-console.log(events);
-console.log(actors);
+// console.log(bars);
+// console.log(events);
+// console.log(actors);
+
+//⌚ Step 1 - Euro-People
+var booking_price=[];
+for (var i = 0 ; i<events.length ; i++){
+  var booking_price_id = events[i].barId;
+  for (var j = 0 ; j<bars.length ; j++){
+    if (booking_price_id == bars[j].id){
+      let obj = new Object();
+      obj["id"] = events[i].id;
+      obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
+      booking_price.push(obj);
+    }
+  }
+}
+console.log(booking_price);
+
