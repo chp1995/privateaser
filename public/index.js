@@ -165,3 +165,30 @@ for (var i = 0 ; i<events.length ; i++){
 }
 console.log(booking_price);
 
+//🍺 Step 2 - Send more, pay less
+var booking_price=[];
+for (var i = 0 ; i<events.length ; i++){
+  var booking_price_id = events[i].barId;
+  for (var j = 0 ; j<bars.length ; j++){
+    if (booking_price_id == bars[j].id){
+      let obj = new Object();
+      var decreases = 1 ;
+      obj["id"] = events[i].id;
+      if ( events[i].persons>=10){
+        decreases=0.9;
+        if(events[i].persons>=20){
+          decreases=0.7;
+          if(events[i].persons>=60){
+            decreases=0.5;
+          }
+        }
+      }
+      obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
+      obj["price"]=obj["price"]*decreases;
+      booking_price.push(obj);
+    }
+  }
+}
+console.log(booking_price);
+
+
