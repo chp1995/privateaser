@@ -151,7 +151,7 @@ const actors = [{
 // console.log(actors);
 
 //⌚ Step 1 - Euro-People
-var booking_price=[];
+var booking_price1=[];
 for (var i = 0 ; i<events.length ; i++){
   var booking_price_id = events[i].barId;
   for (var j = 0 ; j<bars.length ; j++){
@@ -159,14 +159,14 @@ for (var i = 0 ; i<events.length ; i++){
       let obj = new Object();
       obj["id"] = events[i].id;
       obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
-      booking_price.push(obj);
+      booking_price1.push(obj);
     }
   }
 }
-console.log(booking_price);
+console.log(booking_price1);
 
 //🍺 Step 2 - Send more, pay less
-var booking_price=[];
+var booking_price2=[];
 for (var i = 0 ; i<events.length ; i++){
   var booking_price_id = events[i].barId;
   for (var j = 0 ; j<bars.length ; j++){
@@ -185,10 +185,45 @@ for (var i = 0 ; i<events.length ; i++){
       }
       obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
       obj["price"]=obj["price"]*decreases;
-      booking_price.push(obj);
+      booking_price2.push(obj);
     }
   }
 }
-console.log(booking_price);
+console.log(booking_price2);
+
+//💰 Step 3 - Give me all your money
+var booking_price3=[];
+for (var i = 0 ; i<events.length ; i++){
+  var booking_price_id = events[i].barId;
+  for (var j = 0 ; j<bars.length ; j++){
+    if (booking_price_id == bars[j].id){
+      let obj = new Object();
+      var decreases = 1 ;
+      obj["id"] = events[i].id;
+      if ( events[i].persons>=10){
+        decreases=0.9;
+        if(events[i].persons>=20){
+          decreases=0.7;
+          if(events[i].persons>=60){
+            decreases=0.5;
+          }
+        }
+      }
+      obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
+      obj["price"]=obj["price"]*decreases;
+      var commission = obj["price"] * 0.3;
+      var insurance = commission*0.5;
+      var treasury = 1;
+      var privateaser = commission-insurance-treasury;
+      var obj_commission = new Object();
+      obj_commission["insurance"] = insurance;
+      obj_commission["treasury"] = treasury;
+      obj_commission["privateaser"] = privateaser;
+      obj["commission"] = obj_commission
+      booking_price3.push(obj);
+    }
+  }
+}
+console.log(booking_price3);
 
 
