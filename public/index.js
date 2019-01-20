@@ -226,4 +226,37 @@ for (var i = 0 ; i<events.length ; i++){
 }
 console.log(booking_price3);
 
+//💸 Step 4 - The famous deductible
+var booking_price4=[];
+for (var i = 0 ; i<events.length ; i++){
+  var booking_price_id = events[i].barId;
+  for (var j = 0 ; j<bars.length ; j++){
+    if (booking_price_id == bars[j].id){
+      let obj = new Object();
+      var decreases = 1 ;
+      obj["id"] = events[i].id;
+      if ( events[i].persons>=10){
+        decreases=0.9;
+        if(events[i].persons>=20){
+          decreases=0.7;
+          if(events[i].persons>=60){
+            decreases=0.5;
+          }
+        }
+      }
+      obj["price"] = events[i].time * bars[j].pricePerHour + events[i].persons * bars[j].pricePerPerson;
+      
+      var obj_options = new Object();
+      obj_options["deductibleReduction"]=events[i].options.deductibleReduction;
+      obj["options"]=obj_options;
+      if(events[i].options.deductibleReduction==true){
+        obj["price"]=obj["price"]+events[i].persons;
+      }
+      obj["price"]=obj["price"]*decreases;
+      booking_price4.push(obj);
+    }
+  }
+}
+console.log(booking_price4);
+
 
